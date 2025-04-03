@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./Calculation.module.css";
 
 const Calculate: React.FC = () => {
@@ -10,8 +10,8 @@ const Calculate: React.FC = () => {
   // Assumed numbers > 50 and < 0 are invalid
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let calculatedNumber = 0;
     let input = Math.floor(Number(e.target.value));
-
     if (!Boolean(input) && e.target.value !== "") return;
     if (Number(e.target.value) > 50 || Number(e.target.value) < 0) {
       setInvalidError(true);
@@ -27,9 +27,14 @@ const Calculate: React.FC = () => {
     e.preventDefault();
     if (inputNumber && !invalidError) {
       setNumbers((prvNumbers) => [...prvNumbers, inputNumber]);
+      setIsValid(false);
+      setInvalidError(false);
       setInputNumber("");
     }
   };
+
+  const value = numbers.slice(-3).reduce((acc, curr) => acc + curr, 0);
+
   return (
     <div className="w-100 d-flex flex-column align-items-center">
       <div className="p-3">
@@ -56,9 +61,17 @@ const Calculate: React.FC = () => {
         {valid && <p className="text-success">The entered number is valid</p>}
         <div className="position-relative mt-4">
           <span
-            className={`${classes["calculated-number"]} text-center position-absolute p-2 rounded-circle calculated-number`}
+            className={`${classes["calculated-number"]} 
+            ${
+              value > 25
+                ? classes["bg-purple"]
+                : value < 10
+                ? classes["bg-green"]
+                : ""
+            }
+            text-center position-absolute p-2 rounded-circle calculated-number`}
           >
-            {numbers.slice(-3).reduce((acc, curr) => acc + curr, 0)}
+            {value}{" "}
           </span>
           <button type="submit" className="btn btn-secondary">
             Calculate

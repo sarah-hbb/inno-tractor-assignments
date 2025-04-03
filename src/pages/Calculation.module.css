@@ -6,3 +6,11 @@
   transform: translate(-50%, 50%);
   font-size: 0.75rem;
 }
+
+.bg-green {
+  background-color: rgb(24, 178, 10);
+}
+
+.bg-purple {
+  background-color: rgb(190, 60, 190);
+}
