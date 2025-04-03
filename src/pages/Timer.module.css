@@ -1,0 +1,21 @@
+.stopwatch:hover {
+  color: white;
+  transform: translateY(-4px);
+  transition: all ease-in-out 500ms;
+}
+
+@keyframes flash {
+  0% {
+    background-color: black;
+  }
+  50% {
+    background-color: rgb(239, 241, 89);
+  }
+  100% {
+    background-color: black;
+  }
+}
+
+.flashing {
+  animation: flash 1000ms infinite alternate;
+}
