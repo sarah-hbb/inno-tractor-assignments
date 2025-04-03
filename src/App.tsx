@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import Home from "./pages/Home";
 import Timer from "./pages/Timer";
 import Values from "./pages/Values";

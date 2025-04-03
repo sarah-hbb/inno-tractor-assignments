@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-lime {
+  background-color: lime !important;
+}
+
+.text-lime {
+  color: lime !important;
+}
+
+.w-4 {
+  width: 4em;
+}
