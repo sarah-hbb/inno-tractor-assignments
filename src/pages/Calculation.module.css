@@ -14,3 +14,7 @@
 .bg-purple {
   background-color: rgb(190, 60, 190);
 }
+
+.form {
+  min-height: 30vh;
+}

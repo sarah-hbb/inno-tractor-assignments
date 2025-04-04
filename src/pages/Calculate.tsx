@@ -10,7 +10,6 @@ const Calculate: React.FC = () => {
   // Assumed numbers > 50 and < 0 are invalid
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let calculatedNumber = 0;
     let input = Math.floor(Number(e.target.value));
     if (!Boolean(input) && e.target.value !== "") return;
     if (Number(e.target.value) > 50 || Number(e.target.value) < 0) {
@@ -33,32 +32,41 @@ const Calculate: React.FC = () => {
     }
   };
 
-  const value = numbers.slice(-3).reduce((acc, curr) => acc + curr, 0);
+  const slicedNumbers = numbers.slice(-3);
+  const value = slicedNumbers.reduce((acc, curr) => acc + curr, 0);
 
   return (
-    <div className="w-100 d-flex flex-column align-items-center">
-      <div className="p-3">
-        {numbers.slice(-3).map((n, i) => (
-          <span className="p-4" key={i}>
-            {n}
-          </span>
-        ))}
-      </div>
+    <div
+      className={`${classes["container"]} p-5 w-100 d-flex flex-column align-items-center`}
+    >
+      {slicedNumbers.length !== 0 && (
+        <div className="p-3 d-flex">
+          {numbers.length !== 0 &&
+            numbers.slice(-3).map((n, i) => (
+              <div className="p-4" key={i}>
+                {n}
+              </div>
+            ))}
+        </div>
+      )}
       <form
         onSubmit={handleSubmit}
-        className="w-100 d-flex flex-column justify-content-center align-items-center"
+        className={`${classes["form"]} w-100 d-flex flex-column justify-content-between align-items-center`}
       >
-        <input
-          className="rounded-2 p-2 text-center"
-          onChange={handleChange}
-          value={inputNumber}
-        />
-        {invalidError && (
-          <p className="text-danger ">
-            The entered number should be between 0 and 50
-          </p>
-        )}
-        {valid && <p className="text-success">The entered number is valid</p>}
+        <div className="d-flex flex-column align-items-center">
+          <input
+            type="text"
+            className="rounded-2 p-2 text-center"
+            onChange={handleChange}
+            value={inputNumber}
+          />
+          {invalidError && (
+            <p className="text-danger ">
+              The entered number should be between 0 and 50
+            </p>
+          )}
+          {valid && <p className="text-success">The entered number is valid</p>}
+        </div>
         <div className="position-relative mt-4">
           <span
             className={`${classes["calculated-number"]} 
