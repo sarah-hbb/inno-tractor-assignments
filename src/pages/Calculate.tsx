@@ -3,32 +3,28 @@ import classes from "./Calculation.module.css";
 
 const Calculate: React.FC = () => {
   const [numbers, setNumbers] = useState<number[]>([]);
-  const [inputNumber, setInputNumber] = useState<number | "">("");
-  const [invalidError, setInvalidError] = useState<boolean>(false);
+  const [input, setInput] = useState<string>("");
   const [valid, setIsValid] = useState<boolean>(false);
-
-  // Assumed numbers > 50 and < 0 are invalid
+  const [showValidation, setShowValidation] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let input = Math.floor(Number(e.target.value));
-    if (!Boolean(input) && e.target.value !== "") return;
-    if (Number(e.target.value) > 50 || Number(e.target.value) < 0) {
-      setInvalidError(true);
+    setShowValidation(true);
+    setInput(e.target.value);
+    if (!Number(e.target.value)) {
       setIsValid(false);
     } else {
-      setInvalidError(false);
       setIsValid(true);
-      setInputNumber(Number(e.target.value));
     }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputNumber && !invalidError) {
+    if (input && valid) {
+      const inputNumber = Math.floor(Number(input));
       setNumbers((prvNumbers) => [...prvNumbers, inputNumber]);
       setIsValid(false);
-      setInvalidError(false);
-      setInputNumber("");
+      setShowValidation(false);
+      setInput("");
     }
   };
 
@@ -58,14 +54,15 @@ const Calculate: React.FC = () => {
             type="text"
             className="rounded-2 p-2 text-center"
             onChange={handleChange}
-            value={inputNumber}
+            value={input}
           />
-          {invalidError && (
-            <p className="text-danger ">
-              The entered number should be between 0 and 50
+          {showValidation && (
+            <p className={`${valid ? "text-success" : "text-danger"}`}>
+              {valid
+                ? "The input is valid"
+                : "The input should be a valid number!"}
             </p>
           )}
-          {valid && <p className="text-success">The entered number is valid</p>}
         </div>
         <div className="position-relative mt-4">
           <span
