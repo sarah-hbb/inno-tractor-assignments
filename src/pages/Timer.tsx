@@ -39,6 +39,9 @@ const Timer: React.FC = () => {
   const handleReset = () => {
     setIsRunning(false);
     setBgFlashing(false);
+    setSeconds(0);
+    setMinutes(0);
+    setHours(0);
   };
   return (
     <div
